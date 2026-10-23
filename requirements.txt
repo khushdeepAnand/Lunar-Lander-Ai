@@ -1,0 +1,48 @@
+# ===========================================================================
+# Lunar Lander AI - runtime dependencies, EXACT pinned versions.
+# ===========================================================================
+# This set was installed together and verified working. The captured proof
+# (interpreter, versions, real observation/action spaces, real random-policy
+# episode results) is recorded in docs/experiments.md -> Experiment 000.
+#
+# Verified on: Windows, CPython 3.12.10, NVIDIA RTX 3050 Laptop (driver 581.95,
+# CUDA 13.0), 2026-10-15.
+#
+# ---------------------------------------------------------------------------
+# TWO RULES THAT WILL BREAK YOUR INSTALL IF YOU IGNORE THEM
+# ---------------------------------------------------------------------------
+#
+# 1. Use Python 3.12. Do NOT use 3.14.
+#    Gymnasium's `box2d` extra resolves differently per interpreter:
+#       python < 3.14  ->  box2d == 2.3.10     (prebuilt wheel, no compiler)
+#       python >= 3.14 ->  box2d-py == 2.3.8   (SOURCE ONLY: needs SWIG + MSVC)
+#    On a machine without a full C++ toolchain, the 3.14 path fails outright.
+#
+# 2. The pinned CUDA variant comes from the PyTorch index. PyPI also has an
+#    unqualified Windows CPython 3.12 torch 2.14.1 wheel; this file pins cu130.
+#    The `--extra-index-url` line below is needed for the +cu130 build.
+#    The `cu130` build matches a CUDA 13.x driver. On an older driver, change
+#    `cu130` here (and in the README) to an available matching build such as
+#    `cu126`, or use requirements-cpu.txt. cu128 did not list 2.14.1 cp312.
+#
+# ---------------------------------------------------------------------------
+
+--extra-index-url https://download.pytorch.org/whl/cu130
+
+# --- Deep learning ---------------------------------------------------------
+torch==2.14.1+cu130
+
+# --- Environment and physics ----------------------------------------------
+gymnasium==1.4.0
+Box2D==2.3.10
+pygame-ce==2.5.8
+
+# --- Numerics, data, plotting ---------------------------------------------
+numpy==2.5.4
+pandas==3.0.6
+matplotlib==3.11.2
+scipy==1.18.1
+
+# --- Configuration and progress -------------------------------------------
+PyYAML==6.0.3
+tqdm==4.70.1

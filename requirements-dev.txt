@@ -1,0 +1,20 @@
+# ===========================================================================
+# Lunar Lander AI - development dependencies, EXACT pinned versions.
+# ===========================================================================
+# Install with:
+#     python -m pip install -r requirements-dev.txt
+#
+# The `-r requirements.txt` line below pulls in the pinned runtime set first,
+# so this single command is enough to set up a full development environment
+# (it still requires the PyTorch index line that lives in requirements.txt).
+# ===========================================================================
+
+-r requirements.txt
+
+# --- Testing ---------------------------------------------------------------
+pytest==9.1.1
+pytest-cov==7.1.0
+coverage==7.16.2
+
+# --- Linting and formatting ------------------------------------------------
+ruff==0.17.0

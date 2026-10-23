@@ -1,0 +1,13 @@
+# CPU-only alternative for Python 3.12 on Windows; avoids CUDA binaries.
+# Verified that torch-2.14.1+cpu-cp312-cp312-win_amd64.whl exists.
+# Mirrors runtime versions from requirements.txt except the PyTorch wheel.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+gymnasium==1.4.0
+Box2D==2.3.10
+pygame-ce==2.5.8
+numpy==2.5.4
+pandas==3.0.6
+matplotlib==3.11.2
+PyYAML==6.0.3
+tqdm==4.70.1

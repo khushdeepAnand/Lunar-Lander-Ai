@@ -1,0 +1,97 @@
+# ===========================================================================
+# Lunar Lander AI - default training configuration
+# ===========================================================================
+# Every value here is overridable from the command line, e.g.
+#   python scripts/train.py --config configs/default.yaml --episodes 300
+#
+# `python scripts/train.py --config configs/default.yaml` is the canonical
+# "full" training run.
+# ===========================================================================
+
+# --- Reproducibility -------------------------------------------------------
+seed: 42
+
+# auto | cpu | cuda
+# `auto` selects CUDA when torch.cuda.is_available() is True, else CPU.
+device: auto
+
+# --- Environment -----------------------------------------------------------
+environment:
+  id: LunarLander-v3
+  # LunarLander-v3 is DISCRETE by default: 4 actions, 8-D observation.
+  # If `continuous: true`, the action space becomes Box(2,) and the base DQN
+  # implementation is NOT valid (DQN requires a finite discrete action set).
+  # The code must verify the spaces at runtime and fail loudly on mismatch.
+  continuous: false
+  # null -> headless (no window). Use "human" only for eval/playback.
+  render_mode: null
+  # Gymnasium's LunarLander-v3 time limit. Typically 1000 steps.
+  # Verify at runtime rather than trusting this value.
+  max_episode_steps: 1000
+
+# --- Agent (DQN) -----------------------------------------------------------
+agent:
+  hidden_sizes: [128, 128]
+  learning_rate: 0.0005
+  gamma: 0.99
+  batch_size: 64
+  # Replay capacity in transitions (8 floats + int + float + 8 floats + bool).
+  buffer_capacity: 100000
+  # Number of transitions collected before the first gradient step.
+  # Prevents learning from a near-empty buffer.
+  learning_starts: 1000
+  # Run one gradient step every `train_frequency` environment steps.
+  train_frequency: 1
+  # HARD target-network sync every N *gradient* steps (not env steps).
+  target_update_freq: 1000
+  # Global norm for torch.nn.utils.clip_grad_norm_.
+  grad_clip_norm: 10.0
+  # Loss function: smooth_l1 (Huber) or mse.
+  loss: smooth_l1
+
+  # Epsilon-greedy exploration. Linear decay from `start` to `end` over
+  # `decay_steps` environment steps, then held at `end`.
+  epsilon:
+    start: 1.0
+    end: 0.05
+    decay_steps: 150000
+
+# --- Reward shaping (Phase 7) ---------------------------------------------
+# DISABLED by default. The baseline agent must train on the environment's
+# native reward first. The native reward is ALWAYS logged separately from any
+# shaping bonus, and evaluation always reports native return.
+reward_shaping:
+  enabled: false
+  # Optional discounted potential difference:
+  #   Phi(s) = -w * (min(abs(x), 1) + min(abs(angle), 1))
+  #   bonus = gamma * Phi(s_next) - Phi(s); Phi(terminal) = 0.
+  # Native reward is always recorded separately and evaluation reports only it.
+  angle_penalty_weight: 0.0
+
+# --- Training loop ---------------------------------------------------------
+training:
+  # Total training episodes. Light tasks can show progress in ~300-600;
+  # a competitive LunarLander DQN typically needs 800-2000. This is hardware
+  # and hyperparameter dependent - do NOT trust a fixed number.
+  episodes: 1000
+  # Rendering during training is off by default: it dominates wall-clock time.
+  render: false
+  # Save checkpoints every N episodes.
+  checkpoint_interval: 25
+  # Run the evaluation pipeline every N episodes (headless, greedy).
+  eval_interval: 25
+  # Episodes per periodic evaluation.
+  eval_episodes: 20
+  # Print a one-line progress summary every N episodes.
+  log_interval: 10
+  # Stop early once the mean of the last `solved_window` episodes reaches
+  # `solved_threshold`. Set `early_stop: false` to always run to completion.
+  early_stop: true
+  solved_window: 100
+  solved_threshold: 200.0
+
+# --- Output locations (relative to the project root) -----------------------
+paths:
+  log_dir: logs
+  checkpoint_dir: checkpoints
+  results_dir: results

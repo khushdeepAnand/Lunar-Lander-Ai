@@ -1,0 +1,41 @@
+# ===========================================================================
+# Lunar Lander AI - evaluation configuration
+# ===========================================================================
+# Used by `python scripts/evaluate.py --checkpoint <path> --episodes <N>`.
+# Evaluation NEVER updates model weights and NEVER takes random actions
+# unless `greedy: false` is explicitly requested.
+#
+# The point of a separate evaluation config is that evaluation uses a
+# DIFFERENT seed range from training, so reported numbers are not the training
+# episodes replayed back. Keep `seed` distinct from `configs/default.yaml`.
+# ===========================================================================
+
+# Replace <run-id> with the directory printed by scripts/train.py, or pass
+# --checkpoint on the command line. Training never clobbers previous runs.
+#   best.pt   - best mean return at a periodic evaluation
+#   latest.pt - most recent checkpoint
+#   final.pt  - written once at the end of training
+checkpoint: checkpoints/<run-id>/best.pt
+
+# Number of independent evaluation episodes. Higher = tighter confidence
+# interval. 100 is a reasonable default; use >=30 for any claim you publish.
+episodes: 100
+
+# Evaluation seed. Distinct from the training seed by design.
+seed: 40400
+
+# true  -> always take argmax_a Q(s, a)   (deterministic policy)
+# Evaluation is greedy-only in this implementation; reject false explicitly.
+greedy: true
+
+# null -> headless (recommended for metrics).
+# "human" -> opens a Pygame window; use only for small episode counts.
+render_mode: null
+
+# Where the evaluation CSV/JSON summary is written.
+output_dir: results
+
+# Free-form label used to name output files, e.g.
+#   results/eval_native_baseline_2026-01-01.json
+# Change it per experiment so runs never overwrite each other.
+label: eval_default
