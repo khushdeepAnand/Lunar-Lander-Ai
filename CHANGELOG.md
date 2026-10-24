@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-10-24
+
+### Added
+- **GitHub Actions CI** (`.github/workflows/ci.yml`): Runs on push/PR with Python 3.12, installs CPU-compatible dependencies, runs syntax check, Ruff lint, pytest, and packaging smoke test.
+- **Package release tests** (`tests/test_package_release.py`): 8 tests covering source-only packaging, evidence packaging, missing evidence handling, strict mode, duplicate detection, nested ZIP exclusion, atomic overwrite, and determinism.
+- **Robust release packaging** (`scripts/package_release.py`): Supports `--source-only` (default), `--with-evidence`, and `--strict` modes. Clear warnings for missing optional artifacts. Validates ZIP integrity, detects duplicates, excludes secrets/caches/nested ZIPs/virtual environments. Deterministic output.
+
+### Fixed
+- **README.md**: Fixed duplicated sentence in checkpoint description. Updated GitHub status to "published". Verified all referenced assets exist.
+- **TODO.md**: Updated test count from 12 to 37. Marked dashboard, multi-seed runner, and GitHub publication as completed. Clarified that five-seed validation study is outstanding (runner implemented, experiment not executed).
+- **requirements-cpu.txt**: Added missing `scipy==1.18.1` for CPU installations.
+
+### Changed
+- **CHANGELOG.md**: Added v0.2.1 entry documenting all fixes and additions.
+
 ## [0.2.0] - 2026-10-24
 
 ### Added

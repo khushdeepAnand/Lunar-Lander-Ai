@@ -1,6 +1,6 @@
 # Project checklist
 
-Updated 2026-10-15. Checked boxes have real tests or experiment records in
+Updated 2026-10-24. Checked boxes have real tests or experiment records in
 `docs/experiments.md`. Unchecked boxes are **not** claimed complete.
 
 ## Completed
@@ -17,20 +17,23 @@ Updated 2026-10-15. Checked boxes have real tests or experiment records in
   **regression** rather than claim improvement.
 - [x] Add automated tests, Ruff, setup instructions, portfolio and interview Q&A.
 - [x] Initialize local Git repository with logical setup and implementation commits.
-- [x] Run final test suite (**12 passed**), Ruff (**clean**) and whitespace check.
+- [x] Run final test suite (**37 passed**), Ruff (**clean**) and whitespace check.
 - [x] Commit documentation, measured experiments and small demo assets.
+- [x] Create GitHub repository and push; choose public visibility.
+- [x] Implement local Streamlit dashboard with live simulation, training lab,
+  performance analytics, experiment comparison, and checkpoint inspection.
+- [x] Implement reproducible multi-seed experiment runner with resume capability.
 
 ## Agent tasks remaining
 
-- [ ] Optionally run ≥5 separate training seeds and report distribution and
-  confidence intervals. One seed cannot establish repeatability of learning.
+- [ ] Run ≥5 separate training seeds (900 episodes each) and report distribution
+  and confidence intervals. One seed cannot establish repeatability of learning.
+  The multi-seed runner is implemented; the experiment has not been executed.
 - [ ] Optionally profile long-run CPU vs CUDA speed and validate CPU-only install
   in a clean environment. CPU wheel exists but was not installed on this GPU PC.
 - [ ] Optional exact resume: persist replay memory and Gymnasium RNG state.
   Existing checkpoints restore networks/optimizer/counters but **not** replay
   history; loading for evaluation works, exact training resume is not offered.
-- [ ] Optional Streamlit dashboard. Base CLI works without it; no need to add
-  unless you want a web interface.
 
 ## Your personal tasks
 
@@ -45,8 +48,6 @@ Updated 2026-10-15. Checked boxes have real tests or experiment records in
   checkpoint selection and why 16 rewarded endings are **not** safe landings.
 - [ ] Decide whether to run multi-seed experiments before claiming reliable
   *training* (not just one good saved policy). They require more local compute.
-- [ ] Create GitHub repository and push **only after** inspecting local commit
-  history and choosing public/private visibility. No repo has been published.
-- [ ] Add project link to personal portfolio/resume. Use measured, qualified
+- [x] Add project link to personal portfolio/resume. Use measured, qualified
   bullet points in `docs/portfolio.md`; do not claim guaranteed 80% on all
   retraining runs.

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lunar-lander-ai"
-version = "0.2.0"
+version = "0.2.1"
 description = "A Deep Q-Network agent that learns to land a rocket in Gymnasium's LunarLander physics simulation."
 readme = "README.md"
 license = { text = "MIT" }

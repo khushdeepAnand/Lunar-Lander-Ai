@@ -35,7 +35,7 @@ checkout with `python scripts/package_release.py "<destination>.zip"`.
 | 7 | Optional reward-shaping experiment | ⚠️ Under-trained 300-episode exploratory comparison; no supported shaping conclusion |
 | 8 | Training charts and landing playback | ✅ Actual seed-40400 successful landing GIF and PNG charts |
 | 9 | Test suite and linting | ✅ Automated tests and Ruff clean |
-| 10 | Documentation and publication | 🔄 Documentation and Git commits present; GitHub push pending |
+| 10 | Documentation and publication | ✅ Documentation, Git commits, and GitHub repository published |
 | 11 | Local dashboard and subprocess training | ✅ Tested with real frames and a short worker run |
 | 12 | Multi-seed experiment runner | ✅ Reproducible N-seed training with held-out evaluation and statistical aggregation |
 | 13 | Statistical analysis & visualization | ✅ Pandas/Plotly analysis with CIs, Wilson intervals, interactive charts |
@@ -359,7 +359,7 @@ The analysis module produces:
 - `findings_summary.md` — auto-generated Markdown summary
 - `confidence_intervals.csv` — machine-readable aggregated statistics
 
-The committed demo checkpoint (`examples/best_native.pt`, 314,385 bytes) is an (`examples/best_native.pt`, 314,385 bytes) is an
+The committed demo checkpoint (`examples/best_native.pt`, 314,385 bytes) is an
 exact copy of `checkpoints/20261015T163534138250Z/best.pt` (SHA256
 `cc78469aafbf6fa5f23f72816e89b82bc1735f8abbce80b4a4e1104ea1e74175`).
 It was selected by **highest mean native return** at 10-episode periodic
